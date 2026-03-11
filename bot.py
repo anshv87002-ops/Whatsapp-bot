@@ -1,23 +1,23 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
-from command_router import handle_comman
 
-app = Flask(__name__
+app = Flask(__name__)
 
 @app.route("/whatsapp", methods=["POST"])
-def whatsapp()
-    body = request.form.get("Body", "")
-
-    reply = handle_command(body)
-
+def whatsapp():
+    incoming_msg = request.values.get("Body", "").lower()
     resp = MessagingResponse()
-    resp.message(reply)
+    msg = resp.message()
+
+    if incoming_msg == "hi" or incoming_msg == "hello":
+        msg.body("Hello 👋 I am your WhatsApp bot.")
+    elif incoming_msg == "help":
+        msg.body("Commands:\nhi\nhello\nhelp")
+    else:
+        msg.body("Command not recognized")
 
     return str(resp)
 
 @app.route("/")
-def index():
+def home():
     return "Bot is running"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
