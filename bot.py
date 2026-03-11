@@ -5,7 +5,7 @@ from command_router import handle_command
 app = Flask(__name__)
 
 @app.route("/whatsapp", methods=["POST"])
-def whatsapp():
+def whatsapp()
     body = request.form.get("Body", "")
 
     reply = handle_command(body)
