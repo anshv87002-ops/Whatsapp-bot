@@ -6,20 +6,18 @@ app = Flask(__name__)
 
 @app.route("/whatsapp", methods=["POST"])
 def whatsapp():
-    incoming_msg = request.form.get("Body")
+    body = request.form.get("Body", "")
 
-    reply = handle_command(incoming_msg)
+    reply = handle_command(body)
 
     resp = MessagingResponse()
     resp.message(reply)
 
     return str(resp)
 
-
 @app.route("/")
-def home():
-    return "WhatsApp Bot Running"
-
+def index():
+    return "Bot is running"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
