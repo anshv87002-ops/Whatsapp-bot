@@ -1,6 +1,6 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
-from command_router import handle_command
+from command_router import handle_comman
 
 app = Flask(__name__)
 
